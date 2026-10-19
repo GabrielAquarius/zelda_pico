@@ -22,26 +22,26 @@ function player_init()
 
     animation={
         walk={
-            down={2},
-            side={4,6},
-            up={8}
+            down={167},
+            side={169,171},
+            up={173}
         },
-        pick_up = {10},
+        pick_up = {204},
         attack={
-            down={37,39},
-            up={41,43},
-            side={45,64}
+            down={96,98},
+            up={100,102},
+            side={104,106}
         },
         defend={
-            down={66,68},
-            up={70,72},
-            left={74,76},
-            right={78,96}
+            down={64,66},
+            up={68,70},
+            left={72,74},
+            right={76,78}
         },
         push={
-            down={100,102},
-            up={104, 106},
-            side={108,110}
+            down={0,2},
+            up={4, 6},
+            side={8,10}
         }
     }
 

@@ -62,18 +62,18 @@ function get_sword_hitbox()
     local sx, sy = px, py
 
     if pdir == "right" then
-        if fase == 1 then return sx+14, sy-8,  5, 14
+        if fase == 1 then return sx+14, sy-8, 5, 14
         elseif fase == 2 then return sx+14, sy-8, 14, 14
         else return sx+14, sy+8, 14,  5
         end
     elseif pdir == "left" then
-        if fase == 1 then return sx-8,  sy-8,  5, 14
+        if fase == 1 then return sx-8, sy-8, 5, 14
         elseif fase == 2 then return sx-14, sy-2, 14, 14
         else return sx-10, sy+8, 14,  5
         end
     elseif pdir == "up" then
-        if fase == 1 then return sx+12, sy,   14,  5
-        elseif fase == 2 then return sx+6,  sy-8, 14, 14
+        if fase == 1 then return sx+12, sy, 14, 5
+        elseif fase == 2 then return sx+6, sy-8, 14, 14
         else return sx+5,  sy-12, 5, 14
         end
     elseif pdir == "down" then
@@ -202,7 +202,7 @@ function draw_walk_with_shield()
 
     if pdir == "down" then
         sh_data = s.down[step] 
-        offpx, offpy = 0, 1
+        offpx, offpy = 0, 2
         if step == 2 then offpy += 1 end
 
     elseif pdir == "up" then

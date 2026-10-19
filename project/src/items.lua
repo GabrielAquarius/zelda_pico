@@ -1,19 +1,19 @@
 function items_init()
     items_size = {
-        shield_collectable = {sx=0,  sy=8,  sw=8, sh=10},
+        shield_collectable = {sx=0,  sy=64,  sw=8, sh=10},
         shield = {
             down = {{sx=0, sy=18, sw=4, sh=13}, {sx=4, sy=18, sw=3, sh=13}},
-            up = {{sx=120, sy=23, sw=4, sh=9}, {sx=124, sy=23, sw=4, sh=8}},
-            right = {sx=8, sy=24, sw=6, sh=7}
+            up = {{sx=97, sy=55, sw=4, sh=9}, {sx=124, sy=72, sw=4, sh=8}},
+            right = {sx=121, sy=64, sw=6, sh=7}
         },
-        sword_collectable = {sx=120, sy=0, sw=8, sh=16},
+        sword_collectable = {sx=8, sy=64, sw=8, sh=16},
         sword = {
-            ver = {sx=9, sy=0, sw=5,  sh=14},
-            hor = {sx=10, sy=16, sw=14, sh=5},
-            diag = {sx=25, sy=17, sw=14, sh=14}
+            ver = {sx=121, sy=82, sw=5,  sh=14},
+            hor = {sx=97, sy=48, sw=14, sh=5},
+            diag = {sx=113, sy=49, sw=14, sh=14}
         },
-        heart = {sx=64, sy=96, sw=7, sh=7},
-        crystal = {sx=80, sy=97, sw=7, sh=14}
+        heart = {sx=112, sy=96, sw=7, sh=7},
+        crystal = {sx=121, sy=17, sw=7, sh=14}
     }
 
     inv = {

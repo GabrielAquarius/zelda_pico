@@ -1,24 +1,6 @@
 rooms = {
     [1] = {
-        tiles = {
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        },
-        exits = {right=2, left=nil, up=nil, down=nil},
+        exits = {right=2},
         items = {
             {x=40,  y=40,  kind="sword",   collected=false},
             {x=80,  y=40,  kind="shield",  collected=false},
@@ -27,25 +9,7 @@ rooms = {
         }
     },
     [2] = {
-        tiles = {
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        },
-        exits = {right=nil, left=1, up=nil, down=nil},
+        exits = {left=1},
         items = {},
         bushes = {
             {tx=4, ty=4},
@@ -73,8 +37,8 @@ transition = {
 
 ROOM_WIDTH  = 160
 ROOM_HEIGHT = 128
-VIEWPORT_W = 128
-VIEWPORT_H = 108
+VIEWPORT_W  = 128
+VIEWPORT_H  = 108
 
 local EDGE_MARGIN_X = 2
 local EDGE_MARGIN_Y = 2
@@ -87,11 +51,13 @@ function write_room_to_vram(id)
     local room = get_room_data(id)
     if not room then return end
 
-    for i=0,359 do 
-        local tx = i % 20
-        local ty = flr(i / 20)
-        mset(tx, ty, room.tiles[i+1])
+    for ty=0,15 do
+        for tx=0,19 do
+            local border = (ty==0 or ty==15 or (id==1 and tx==0) or (id==2 and tx==19))
+            mset(tx, ty, border and 1 or 0)
+        end
     end
+    if id == 1 then mset(6, 0, 203) end
 end
 
 function load_room(id)
@@ -104,25 +70,6 @@ function load_room(id)
     local room = get_room_data(id)
     world_items = room.items
     load_bushes(room.bushes)
-end
-
-local EDGE_MARGIN = 2
-
-function check_room_exit()
-    if transition.active then return end
-
-    local room = get_room_data(current_room_id)
-    if not room then return end
-
-    if px >= 128 - EDGE_MARGIN and room.exits.right then
-        start_transition(DIR.right, room.exits.right)
-    elseif px <= EDGE_MARGIN and room.exits.left then
-        start_transition(DIR.left, room.exits.left)
-    elseif py >= 128 - EDGE_MARGIN and room.exits.down then
-        start_transition(DIR.down, room.exits.down)
-    elseif py <= EDGE_MARGIN and room.exits.up then
-        start_transition(DIR.up, room.exits.up)
-    end
 end
 
 function start_transition(dir, next_id)

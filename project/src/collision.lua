@@ -23,8 +23,3 @@ function walkable(pnx,pny)
     my_tile=mget(pnx/8,pny/8)
     return not fget(my_tile,0)
 end
-
-function walkable(pnx,pny)
-    my_tile=mget(pnx/8,pny/8)
-    return not fget(my_tile,0)
-end
